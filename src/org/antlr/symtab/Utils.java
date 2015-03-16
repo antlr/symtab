@@ -13,6 +13,9 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class Utils {
+	/** Return first ancestor node up the chain towards the root that has ruleName.
+	 *  Search includes the current node.
+	 */
 	public static ParserRuleContext getAncestor(Parser parser, ParserRuleContext ctx, String ruleName) {
 		int ruleIndex = parser.getRuleIndex(ruleName);
 		return getAncestor(ctx, ruleIndex);
@@ -21,15 +24,103 @@ public class Utils {
 	/** Return first ancestor node up the chain towards the root that has the rule index.
 	 *  Search includes the current node.
 	 */
-	public static ParserRuleContext getAncestor(ParserRuleContext ctx, int ruleIndex) {
-		while ( ctx!=null ) {
-			if ( ctx.getRuleIndex() == ruleIndex ) {
-				return ctx;
+	public static ParserRuleContext getAncestor(ParserRuleContext t, int ruleIndex) {
+		while ( t!=null ) {
+			if ( t.getRuleIndex() == ruleIndex ) {
+				return t;
 			}
-			ctx = ctx.getParent();
+			t = t.getParent();
 		}
 		return null;
 	}
+
+	/** Return first ancestor node up the chain towards the root that is clazz.
+	 *  Search includes the current node.
+	 */
+	public static ParserRuleContext getFirstAncestorOfType(ParserRuleContext t, Class<?> clazz) {
+		while ( t!=null ) {
+			if ( t.getClass()==clazz ) {
+				return t;
+			}
+			t = t.getParent();
+		}
+		return null;
+	}
+
+	public static Field[] getAllFields(Class<?> clazz) {
+		List<Field> fields = new ArrayList<>();
+		while ( clazz!=null && clazz != Object.class ) {
+			for (Field f : clazz.getDeclaredFields()) {
+				fields.add(f);
+			}
+		    clazz = clazz.getSuperclass();
+		}
+		return fields.toArray(new Field[fields.size()]);
+	}
+
+	public static Field[] getAllAnnotatedFields(Class<?> clazz) {
+		List<Field> fields = new ArrayList<>();
+		while ( clazz!=null && clazz != Object.class ) {
+			for (Field f : clazz.getDeclaredFields()) {
+				if ( f.getAnnotations().length>0 ) {
+					fields.add(f);
+				}
+			}
+		    clazz = clazz.getSuperclass();
+		}
+		return fields.toArray(new Field[fields.size()]);
+	}
+
+	public static void getAllNestedScopes(Scope scope, List<Scope> scopes) {
+		scopes.addAll(scope.getNestedScopes());
+		for (Scope s : scope.getNestedScopes()) {
+			getAllNestedScopes(s, scopes);
+		}
+	}
+
+	/** Return a string of scope names with the "stack" growing to the left
+	 *  E.g., myblock:mymethod:myclass.
+	 *  String includes arg scope in string.
+	 */
+	public static String asScopeStackString(Scope scope, String separator) {
+		List<Scope> scopes = scope.getEnclosingPathToRoot();
+		return joinScopeNames(scopes, separator);
+	}
+
+	/** Return a string of scope names with the "stack" growing to the right.
+	 *  E.g., myclass:mymethod:myblock.
+	 *  String includes arg scope in string.
+	 */
+	public static String asQualifierString(Scope scope, String separator) {
+		List<Scope> scopes = scope.getEnclosingPathToRoot();
+		Collections.reverse(scopes);
+		return joinScopeNames(scopes, separator);
+	}
+
+	public static String toString(Scope s, int level) {
+		StringBuilder buf = new StringBuilder();
+		buf.append(tab(level));
+		buf.append(s.getScopeName());
+		buf.append("\n");
+		level++;
+		for (Symbol sym : s.getSymbols()) {
+			if ( !(sym instanceof Scope) ) {
+				buf.append(tab(level));
+				buf.append(sym);
+				buf.append("\n");
+			}
+		}
+		for (Scope nested : s.getNestedScopes()) {
+			buf.append( toString(nested, level) );
+		}
+		return buf.toString();
+	}
+
+	public static String toString(Scope s) {
+		return toString(s, 0);
+	}
+
+	//  Generic filtering, mapping, joining that should be in the standard library but aren't
 
 	public static <T> List<T> filter(List<T> data, Predicate<T> pred) {
 		List<T> output = new ArrayList<>();
@@ -91,30 +182,6 @@ public class Utils {
 		return builder.toString();
 	}
 
-	public static Field[] getAllFields(Class<?> clazz) {
-		List<Field> fields = new ArrayList<>();
-		while ( clazz!=null && clazz != Object.class ) {
-			for (Field f : clazz.getDeclaredFields()) {
-				fields.add(f);
-			}
-		    clazz = clazz.getSuperclass();
-		}
-		return fields.toArray(new Field[fields.size()]);
-	}
-
-	public static Field[] getAllAnnotatedFields(Class<?> clazz) {
-		List<Field> fields = new ArrayList<>();
-		while ( clazz!=null && clazz != Object.class ) {
-			for (Field f : clazz.getDeclaredFields()) {
-				if ( f.getAnnotations().length>0 ) {
-					fields.add(f);
-				}
-			}
-		    clazz = clazz.getSuperclass();
-		}
-		return fields.toArray(new Field[fields.size()]);
-	}
-
 	public static String tab(int n) {
 		StringBuilder buf = new StringBuilder();
 		for (int i=1; i<=n; i++) buf.append("    ");
@@ -134,42 +201,4 @@ public class Utils {
 		}
 		return buf.toString();
 	}
-
-	public static void getAllNestedScopes(Scope scope, List<Scope> scopes) {
-		scopes.addAll(scope.getNestedScopes());
-		for (Scope s : scope.getNestedScopes()) {
-			getAllNestedScopes(s, scopes);
-		}
-	}
-
-	/** Return a string of scope names with the "stack" growing to the left
-	 *  E.g., myblock:mymethod:myclass.
-	 *  String includes arg scope in string.
-	 */
-	public static String asScopeStackString(Scope scope, String separator) {
-		List<Scope> scopes = scope.getEnclosingPathToRoot();
-		return joinScopeNames(scopes, separator);
-	}
-
-	/** Return a string of scope names with the "stack" growing to the right.
-	 *  E.g., myclass:mymethod:myblock.
-	 *  String includes arg scope in string.
-	 */
-	public static String asQualifierString(Scope scope, String separator) {
-		List<Scope> scopes = scope.getEnclosingPathToRoot();
-		Collections.reverse(scopes);
-		return joinScopeNames(scopes, separator);
-	}
-
-//	public static List<? extends Tree> getFirstAncestorsOfType(Tree t, Class<?> clazz) {
-//		if ( t.getParent()==null ) return Collections.emptyList();
-//		List<Tree> ancestors = new ArrayList<Tree>();
-//		t = t.getParent();
-//		while ( t!=null ) {
-//			ancestors.add(0, t); // insert at start
-//			t = t.getParent();
-//		}
-//		return ancestors;
-//	}
-
 }

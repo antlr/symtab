@@ -7,10 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/** An abstract base class that houses common functionality for scopes. */
 public abstract class BaseScope implements Scope {
-	protected Scope enclosingScope; // null if global (outermost) scope
+	protected Scope enclosingScope; // null if this scope is the root of the scope tree
 
-	protected  Map<String, Symbol> symbols = new LinkedHashMap<String, Symbol>();
+	protected Map<String, Symbol> symbols = new LinkedHashMap<>();
 
 	public BaseScope() { }
 
@@ -40,7 +41,6 @@ public abstract class BaseScope implements Scope {
 	public Symbol resolve(String name) {
 		Symbol s = symbols.get(name);
 		if ( s!=null ) {
-//			System.out.println("found "+name+" in "+this.asScopeStackString());
 			return s;
 		}
 		// if not here, check any enclosing scope
@@ -50,7 +50,6 @@ public abstract class BaseScope implements Scope {
 	}
 
 	public void define(Symbol sym) throws IllegalArgumentException {
-//		System.out.println("def "+sym.getName());
 		if ( symbols.containsKey(sym.getName()) ) {
 			throw new IllegalArgumentException("duplicate symbol "+sym.getName());
 		}

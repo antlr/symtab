@@ -6,8 +6,8 @@ package org.antlr.symtab;
 public class FieldSymbol extends VariableSymbol implements MemberSymbol {
 	protected int slot;
 
-	public FieldSymbol(Scope scope, String name) {
-		super(scope, name);
+	public FieldSymbol(String name) {
+		super(name);
 	}
 
 	@Override

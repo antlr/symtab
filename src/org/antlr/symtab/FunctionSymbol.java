@@ -2,6 +2,10 @@ package org.antlr.symtab;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 
+/** This symbol represents a function ala C, not a method ala Java.
+ *  You can associate a node in the parse tree that is responsible
+ *  for defining this symbol.
+ */
 public class FunctionSymbol extends SymbolWithScope implements TypedSymbol {
 	protected ParserRuleContext defNode;
 	protected Type retType;

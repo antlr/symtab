@@ -1,17 +1,22 @@
 package org.antlr.symtab;
 
+/** An element within a type type such is used in C or Java where we need to
+ *  indicate the type is an array of some element type like float[] or User[].
+ *  It also tracks the size as some types indicate the size of the array.
+ */
 public class ArrayType implements Type {
-	protected Type elemType;
-	protected int size; // some languages allow you to point at arrays of a specific size
+	protected final Type elemType;
+	protected final int numElems; // some languages allow you to point at arrays of a specific size
 
 	public ArrayType(Type elemType) {
 		this.elemType = elemType;
+		this.numElems = -1;
 	}
 
-	public ArrayType(Type elemType, int size)
+	public ArrayType(Type elemType, int numElems)
 	{
 		this.elemType = elemType;
-		this.size = size;
+		this.numElems = numElems;
 	}
 
 	@Override

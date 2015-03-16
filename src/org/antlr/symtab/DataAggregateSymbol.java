@@ -4,12 +4,12 @@ import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.List;
 
-/** A symbol to represent a collection of data like a struct or class.
+/** A symbol representing a collection of data like a struct or class.
  *  Each member has a slot number indexed from 0 and we track data fields
  *  and methods with different slot sequences. A DataAggregateSymbol
  *  can also be a member of an aggregate itself (nested structs, ...).
  */
-public class DataAggregateSymbol extends SymbolWithScope implements MemberSymbol, Type {
+public abstract class DataAggregateSymbol extends SymbolWithScope implements MemberSymbol, Type {
 	protected ParserRuleContext defNode;
 	protected int nextFreeFieldSlot = 0;  // next slot to allocate
 
@@ -46,7 +46,6 @@ public class DataAggregateSymbol extends SymbolWithScope implements MemberSymbol
 			FieldSymbol fsym = (FieldSymbol)sym;
 			fsym.slot = nextFreeFieldSlot++;
 		}
-//		System.out.println(sym.getName()+" is slot "+((MemberSymbol) sym).getSlotNumber());
 	}
 
 	public MethodSymbol resolveMethod(String name) {

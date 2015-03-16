@@ -5,7 +5,11 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import java.util.Collections;
 import java.util.List;
 
-public class BaseSymbol implements Symbol {
+/** An abstract base class used to house common functionality.
+ *  You can associate a node in the parse tree that is responsible
+ *  for defining this symbol.
+ */
+public abstract class BaseSymbol implements Symbol {
 	protected final String name;   		 // All symbols at least have a name
 	protected Type type;				 // If language statically typed, record type
 	protected Scope scope;      		 // All symbols know what scope contains them.
@@ -55,7 +59,6 @@ public class BaseSymbol implements Symbol {
 		this.lexicalOrder = i;
 	}
 
-	@Override
 	public String getFullyQualifiedName(String scopePathSeparator) {
 		List<Scope> path = scope.getEnclosingPathToRoot();
 		Collections.reverse(path);

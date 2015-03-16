@@ -1,18 +1,26 @@
 package org.antlr.symtab;
 
-/** For C types like "void (*)()", we need that to be a pointer to a function
- *  returning void. This is the "to a function returning void" part of the type
- *  tree.
+import java.util.List;
+
+/** For C types like "void (*)(int)", we need that to be a pointer to a function
+ *  taking a single integer argument returning void.
  */
 public class FunctionType implements Type {
-	protected Type returnType;
-	public FunctionType(Type returnType) {
+	protected final Type returnType;
+	protected final List<Type> argumentTypes;
+
+	public FunctionType(Type returnType, List<Type> argumentTypes) {
 		this.returnType = returnType;
+		this.argumentTypes = argumentTypes;
 	}
 
 	@Override
 	public String getName() {
 		return toString();
+	}
+
+	public List<Type> getArgumentTypes() {
+		return argumentTypes;
 	}
 
 	@Override

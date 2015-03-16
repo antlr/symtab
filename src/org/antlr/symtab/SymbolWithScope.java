@@ -3,6 +3,11 @@ package org.antlr.symtab;
 import java.util.Collections;
 import java.util.List;
 
+/** An abstract base class that houses common functionality for
+ *  symbols like classes and functions that are both symbols and scopes.
+ *  There is some common cut and paste functionality with {@link BaseSymbol}
+ *  because of a lack of multiple inheritance in Java but it is minimal.
+ */
 public abstract class SymbolWithScope extends BaseScope implements Symbol, Scope {
 	protected final String name; // All symbols at least have a name
 	protected int index; 	// insertion order from 0; compilers often need this
@@ -55,7 +60,6 @@ public abstract class SymbolWithScope extends BaseScope implements Symbol, Scope
 		return name.hashCode();
 	}
 
-	@Override
 	public String getFullyQualifiedName(String scopePathSeparator) {
 		List<Scope> path = getEnclosingPathToRoot();
 		Collections.reverse(path);

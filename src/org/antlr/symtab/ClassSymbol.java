@@ -3,6 +3,9 @@ package org.antlr.symtab;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/** A symbol representing the class. It is a kind of data aggregate
+ *  that has much in common with a struct.
+ */
 public class ClassSymbol extends DataAggregateSymbol {
 	protected String superClassName; // null if this is Object
 	protected int nextFreeMethodSlot = 0; // next slot to allocate
@@ -47,7 +50,6 @@ public class ClassSymbol extends DataAggregateSymbol {
 		else {
 			super.setSlotNumber(sym);
 		}
-//		System.out.println(sym.getName()+" is slot "+((MemberSymbol) sym).getSlotNumber());
 	}
 
 	public Set<MethodSymbol> getVisibleMethods() {
