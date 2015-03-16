@@ -97,7 +97,7 @@ def _mkjar():
 
 
 def mkjar(): # if called as root target
-    rmdir("out")
+    clean()
     _mkjar()
 
 
