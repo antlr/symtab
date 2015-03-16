@@ -1,7 +1,7 @@
 package org.antlr.symtab;
 
 public class PointerType implements Type {
-	public Type targetType;
+	protected Type targetType;
 	public PointerType(Type targetType) {
 		this.targetType = targetType;
 	}
