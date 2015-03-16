@@ -125,12 +125,12 @@ public abstract class BaseScope implements Scope {
 
 	public String toString() { return symbols.keySet().toString(); }
 
-	public String asScopeStackString(String separator) {
-		return Utils.asScopeStackString(this, separator);
+	public String toScopeStackString(String separator) {
+		return Utils.toScopeStackString(this, separator);
 	}
 
-	public String asQualifierString(String separator) {
-		return Utils.asScopeStackString(this, separator);
+	public String toQualifierString(String separator) {
+		return Utils.toQualifierString(this, separator);
 	}
 
 	public String toTestString() {

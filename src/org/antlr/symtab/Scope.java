@@ -89,4 +89,7 @@ public interface Scope {
 
 	/** Number of symbols in this specific scope */
 	int getNumberOfSymbols();
+
+	/** Return scopes from to current with separator in between */
+	public String toQualifierString(String separator);
 }

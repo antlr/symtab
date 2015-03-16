@@ -82,7 +82,7 @@ public class Utils {
 	 *  E.g., myblock:mymethod:myclass.
 	 *  String includes arg scope in string.
 	 */
-	public static String asScopeStackString(Scope scope, String separator) {
+	public static String toScopeStackString(Scope scope, String separator) {
 		List<Scope> scopes = scope.getEnclosingPathToRoot();
 		return joinScopeNames(scopes, separator);
 	}
@@ -91,7 +91,7 @@ public class Utils {
 	 *  E.g., myclass:mymethod:myblock.
 	 *  String includes arg scope in string.
 	 */
-	public static String asQualifierString(Scope scope, String separator) {
+	public static String toQualifierString(Scope scope, String separator) {
 		List<Scope> scopes = scope.getEnclosingPathToRoot();
 		Collections.reverse(scopes);
 		return joinScopeNames(scopes, separator);
