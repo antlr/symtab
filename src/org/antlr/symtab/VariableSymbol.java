@@ -13,7 +13,7 @@ public class VariableSymbol extends BaseSymbol implements TypedSymbol {
 	@Override
 	public String toString() {
 		String s = "";
-		s = scope.getScopeName()+".";
+		s = scope.getName()+".";
 		if ( type!=null ) return '<'+s+getName()+"."+type+'>';
 		return s+getName();
 	}

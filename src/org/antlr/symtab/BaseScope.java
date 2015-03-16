@@ -139,7 +139,7 @@ public abstract class BaseScope implements Scope {
 
 	public String toTestString(String separator, String scopePathSeparator) {
 		List<? extends Symbol> allSymbols = this.getAllSymbols();
-		List<String> syms = Utils.map(allSymbols, s -> s.getScope().getScopeName() + scopePathSeparator + s.getName());
+		List<String> syms = Utils.map(allSymbols, s -> s.getScope().getName() + scopePathSeparator + s.getName());
 		return Utils.join(syms, separator);
 	}
 }

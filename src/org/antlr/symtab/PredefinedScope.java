@@ -5,7 +5,7 @@ package org.antlr.symtab;
  */
 public class PredefinedScope extends BaseScope {
 	@Override
-	public String getScopeName() {
+	public String getName() {
 		return "predefined";
 	}
 }

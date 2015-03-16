@@ -100,7 +100,7 @@ public class Utils {
 	public static String toString(Scope s, int level) {
 		StringBuilder buf = new StringBuilder();
 		buf.append(tab(level));
-		buf.append(s.getScopeName());
+		buf.append(s.getName());
 		buf.append("\n");
 		level++;
 		for (Symbol sym : s.getSymbols()) {
@@ -111,7 +111,7 @@ public class Utils {
 			}
 		}
 		for (Scope nested : s.getNestedScopes()) {
-			buf.append( toString(nested, level) );
+			buf.append(toString(nested, level));
 		}
 		return buf.toString();
 	}
@@ -193,11 +193,11 @@ public class Utils {
 			return "";
 		}
 		StringBuilder buf = new StringBuilder();
-		buf.append(scopes.get(0).getScopeName());
+		buf.append(scopes.get(0).getName());
 		for (int i = 1; i<scopes.size(); i++) {
 			Scope s = scopes.get(i);
 			buf.append(separator);
-			buf.append(s.getScopeName());
+			buf.append(s.getName());
 		}
 		return buf.toString();
 	}

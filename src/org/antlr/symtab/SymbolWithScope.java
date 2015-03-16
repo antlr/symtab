@@ -23,8 +23,6 @@ public abstract class SymbolWithScope extends BaseScope implements Symbol, Scope
 	public Scope getParentScope() { return getEnclosingScope(); }
     public Scope getEnclosingScope() { return enclosingScope; }
 
-    public String getScopeName() { return name; }
-
 	public String getQualifiedName() {
 		return enclosingScope+"."+name;
 	}

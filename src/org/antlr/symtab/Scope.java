@@ -24,7 +24,7 @@ public interface Scope {
 	/** Often scopes have names like function or class names. For
 	 *  unnamed scopes like code blocks, you can just return "local" or something.
 	 */
-	String getScopeName();
+	String getName();
 
 	/** Where to look next for symbols if just one parent; superclass or enclosing scope. */
 	Scope getParentScope();

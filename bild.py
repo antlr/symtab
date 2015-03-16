@@ -102,7 +102,7 @@ def mkjar(): # if called as root target
 
 
 def install(): # mvn installed locally in ~/.m2, java jar to /usr/local/lib if present
-    require(_mkjar)
+    require(mkjar)
     require(mksrc)
     require(mkdoc)
     jarfile = "dist/symtab-" + VERSION + ".jar"
