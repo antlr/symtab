@@ -13,10 +13,7 @@ public class BaseSymbol implements Symbol {
 	protected int lexicalOrder; 		 // order seen or insertion order from 0; compilers often need this
 
 	public BaseSymbol(String name) { this.name = name; }
-	public BaseSymbol(Scope scope, String name) {
-		this(name);
-		this.scope = scope;
-	}
+
 	@Override public String getName() { return name; }
 	@Override public Scope getScope() { return scope; }
 	@Override public void setScope(Scope scope) { this.scope = scope; }

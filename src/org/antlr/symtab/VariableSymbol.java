@@ -1,8 +1,8 @@
 package org.antlr.symtab;
 
 public class VariableSymbol extends BaseSymbol implements TypedSymbol {
-	public VariableSymbol(Scope scope, String name) {
-		super(scope, name);
+	public VariableSymbol(String name) {
+		super(name);
 	}
 
 	@Override
