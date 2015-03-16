@@ -28,6 +28,10 @@ public class BaseSymbol implements Symbol {
 		this.defNode = defNode;
 	}
 
+	public ParserRuleContext getDefNode() {
+		return defNode;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if ( !(obj instanceof Symbol) ) {

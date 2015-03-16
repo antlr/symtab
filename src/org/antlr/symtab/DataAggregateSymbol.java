@@ -21,6 +21,10 @@ public class DataAggregateSymbol extends SymbolWithScope implements MemberSymbol
 		this.defNode = defNode;
 	}
 
+	public ParserRuleContext getDefNode() {
+		return defNode;
+	}
+
 	@Override
 	public void define(Symbol sym) throws IllegalArgumentException {
 		if ( !(sym instanceof MemberSymbol) ) {

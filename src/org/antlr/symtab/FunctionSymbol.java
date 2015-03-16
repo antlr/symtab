@@ -14,6 +14,10 @@ public class FunctionSymbol extends SymbolWithScope implements TypedSymbol {
 		this.defNode = defNode;
 	}
 
+	public ParserRuleContext getDefNode() {
+		return defNode;
+	}
+
 	@Override
 	public Type getType() {
 		return retType;
