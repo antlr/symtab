@@ -17,9 +17,11 @@ public class ClassSymbol extends DataAggregateSymbol {
 	@Override
 	public Scope getParentScope() {
 		if ( superClassName!=null ) {
-			Symbol superClass = getEnclosingScope().resolve(superClassName);
-			if (superClass instanceof ClassSymbol) {
-				return (Scope) superClass; // parent is not enclosing scope for classes
+			if ( getEnclosingScope()!=null ) {
+				Symbol superClass = getEnclosingScope().resolve(superClassName);
+				if (superClass instanceof ClassSymbol) {
+					return (Scope) superClass; // parent is not enclosing scope for classes
+				}
 			}
 		}
 		return super.getEnclosingScope();
