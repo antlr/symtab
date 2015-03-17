@@ -7,8 +7,10 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -124,6 +126,16 @@ public class Utils {
 
 	public static <T> List<T> filter(List<T> data, Predicate<T> pred) {
 		List<T> output = new ArrayList<>();
+		for (T x : data) {
+			if ( pred.test(x) ) {
+				output.add(x);
+			}
+		}
+		return output;
+	}
+
+	public static <T> Set<T> filter(Collection<T> data, Predicate<T> pred) {
+		Set<T> output = new HashSet<>();
 		for (T x : data) {
 			if ( pred.test(x) ) {
 				output.add(x);

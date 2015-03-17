@@ -3,6 +3,7 @@ package org.antlr.symtab;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.List;
+import java.util.Map;
 
 /** A symbol representing a collection of data like a struct or class.
  *  Each member has a slot number indexed from 0 and we track data fields
@@ -41,19 +42,39 @@ public abstract class DataAggregateSymbol extends SymbolWithScope implements Mem
 		return (List<MemberSymbol>)super.getSymbols();
 	}
 
+	@Override
+	public Map<String, ? extends MemberSymbol> getMembers() {
+		return (Map<String, ? extends MemberSymbol>)super.getMembers();
+	}
+
+	/** get the number of fields defined specifically in this class */
+	public int getNumberOfDefinedFields() {
+		int n = 0;
+		for (MemberSymbol s : getSymbols()) {
+			if ( s instanceof FieldSymbol ) {
+				n++;
+			}
+		}
+		return n;
+	}
+
+	/** get the total number of fields visible to this class */
+	public int getNumberOfFields() {
+		int n = 0;
+		if ( getParentScope() instanceof DataAggregateSymbol ) {
+			DataAggregateSymbol parentScope = (DataAggregateSymbol)getParentScope();
+			n += parentScope.getNumberOfFields();
+		}
+		n += getNumberOfDefinedFields();
+		return n;
+	}
+
+
 	public void setSlotNumber(Symbol sym) {
 		if ( sym instanceof FieldSymbol) {
 			FieldSymbol fsym = (FieldSymbol)sym;
 			fsym.slot = nextFreeFieldSlot++;
 		}
-	}
-
-	public MethodSymbol resolveMethod(String name) {
-		Symbol sym = resolve(name);
-		if ( sym instanceof MethodSymbol ) {
-			return (MethodSymbol)sym;
-		}
-		return null;
 	}
 
 	@Override

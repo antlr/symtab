@@ -32,5 +32,17 @@ public class FunctionSymbol extends SymbolWithScope implements TypedSymbol {
 		retType = type;
 	}
 
+	/** Return the number of VariableSymbols specifically defined in the scope.
+	 *  This is useful as either the number of parameters or the number of
+	 *  parameters and locals depending on how you build the scope tree.
+	 */
+	public int getNumberOfVariables() {
+		return Utils.filter(symbols.values(), s -> s instanceof VariableSymbol).size();
+	}
+
+	public int getNumberOfParameters() {
+		return Utils.filter(symbols.values(), s -> s instanceof ParameterSymbol).size();
+	}
+
 	public String toString() { return name+":"+super.toString(); }
 }

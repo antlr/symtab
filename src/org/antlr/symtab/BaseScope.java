@@ -17,7 +17,7 @@ public abstract class BaseScope implements Scope {
 
 	public BaseScope(Scope enclosingScope) { setEnclosingScope(enclosingScope);	}
 
-	public Map<String, Symbol> getMembers() {
+	public Map<String, ? extends Symbol> getMembers() {
 		return symbols;
 	}
 
@@ -79,7 +79,7 @@ public abstract class BaseScope implements Scope {
 	public List<Scope> getEnclosingPathToRoot() {
 		List<Scope> scopes = new ArrayList<>();
 		Scope s = this;
-		while ( s.getEnclosingScope()!=null ) {
+		while ( s!=null ) {
 			scopes.add(s);
 			s = s.getEnclosingScope();
 		}
