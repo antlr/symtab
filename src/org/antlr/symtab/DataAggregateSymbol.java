@@ -2,6 +2,7 @@ package org.antlr.symtab;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -69,6 +70,25 @@ public abstract class DataAggregateSymbol extends SymbolWithScope implements Mem
 		return n;
 	}
 
+	public List<? extends FieldSymbol> getDefinedFields() {
+		List<FieldSymbol> fields = new ArrayList<>();
+		for (MemberSymbol s : getSymbols()) {
+			if (s instanceof FieldSymbol) {
+				fields.add((FieldSymbol)s);
+			}
+		}
+		return fields;
+	}
+
+	public List<? extends FieldSymbol> getFields() {
+		List<FieldSymbol> fields = new ArrayList<>();
+		if ( getParentScope() instanceof DataAggregateSymbol ) {
+			DataAggregateSymbol parentScope = (DataAggregateSymbol)getParentScope();
+			fields.addAll( parentScope.getFields() );
+		}
+		fields.addAll( getDefinedFields() );
+		return fields;
+	}
 
 	public void setSlotNumber(Symbol sym) {
 		if ( sym instanceof FieldSymbol) {
