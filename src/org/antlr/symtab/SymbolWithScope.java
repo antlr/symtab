@@ -24,7 +24,7 @@ public abstract class SymbolWithScope extends BaseScope implements Symbol, Scope
     public Scope getEnclosingScope() { return enclosingScope; }
 
 	public String getQualifiedName() {
-		return enclosingScope+"."+name;
+		return enclosingScope.getName()+"."+name;
 	}
 
 	@Override

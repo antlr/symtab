@@ -105,7 +105,7 @@ public class Utils {
 		buf.append(s.getName());
 		buf.append("\n");
 		level++;
-		for (Symbol sym : s.getSymbols()) {
+		if ( s!=null ) for (Symbol sym : s.getSymbols()) {
 			if ( !(sym instanceof Scope) ) {
 				buf.append(tab(level));
 				buf.append(sym);
@@ -126,7 +126,7 @@ public class Utils {
 
 	public static <T> List<T> filter(List<T> data, Predicate<T> pred) {
 		List<T> output = new ArrayList<>();
-		for (T x : data) {
+		if ( data!=null ) for (T x : data) {
 			if ( pred.test(x) ) {
 				output.add(x);
 			}
@@ -146,7 +146,7 @@ public class Utils {
 
 	public static <T,R> List<R> map(Collection<T> data, Function<T,R> getter) {
 		List<R> output = new ArrayList<>();
-		for (T x : data) {
+		if ( data!=null ) for (T x : data) {
 			output.add(getter.apply(x));
 		}
 		return output;
@@ -154,7 +154,7 @@ public class Utils {
 
 	public static <T,R> List<R> map(T[] data, Function<T,R> getter) {
 		List<R> output = new ArrayList<>();
-		for (T x : data) {
+		if ( data!=null ) for (T x : data) {
 			output.add(getter.apply(x));
 		}
 		return output;
