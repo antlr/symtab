@@ -144,7 +144,7 @@ public class Utils {
 		return output;
 	}
 
-	public static <T,R> List<R> map(List<T> data, Function<T,R> getter) {
+	public static <T,R> List<R> map(Collection<T> data, Function<T,R> getter) {
 		List<R> output = new ArrayList<>();
 		for (T x : data) {
 			output.add(getter.apply(x));
