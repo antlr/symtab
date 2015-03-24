@@ -23,8 +23,25 @@ public abstract class SymbolWithScope extends BaseScope implements Symbol, Scope
 	public Scope getParentScope() { return getEnclosingScope(); }
     public Scope getEnclosingScope() { return enclosingScope; }
 
+	/** Return the name prefixed with the name of its enclosing scope
+	 *  using '.' (dot) as the scope separator.
+	 */
 	public String getQualifiedName() {
 		return enclosingScope.getName()+"."+name;
+	}
+
+	/** Return the name prefixed with the name of its enclosing scope. */
+	public String getQualifiedName(String scopePathSeparator) {
+		return enclosingScope.getName()+scopePathSeparator+name;
+	}
+
+	/** Return the fully qualified name includes all scopes from the root down
+	 *  to this particular symbol.
+	 */
+	public String getFullyQualifiedName(String scopePathSeparator) {
+		List<Scope> path = getEnclosingPathToRoot();
+		Collections.reverse(path);
+		return Utils.joinScopeNames(path, scopePathSeparator);
 	}
 
 	@Override
@@ -56,12 +73,5 @@ public abstract class SymbolWithScope extends BaseScope implements Symbol, Scope
 	@Override
 	public int hashCode() {
 		return name.hashCode();
-	}
-
-	public String getFullyQualifiedName(String scopePathSeparator) {
-		List<Scope> path = getEnclosingPathToRoot();
-		Collections.reverse(path);
-		String qualifier = Utils.joinScopeNames(path, scopePathSeparator);
-		return qualifier + scopePathSeparator + name;
 	}
 }

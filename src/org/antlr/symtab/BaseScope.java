@@ -65,7 +65,8 @@ public abstract class BaseScope implements Scope {
 	public Scope getEnclosingScope() { return enclosingScope; }
 
 	/** Walk up enclosingScope until we find topmost. Note this is
-	 *  enclosing scope not necessarily parent.
+	 *  enclosing scope not necessarily parent. This will usually be
+	 *  a global scope or something, depending on your scope tree.
 	 */
 	public Scope getOuterMostEnclosingScope() {
 		Scope s = this;
@@ -73,6 +74,22 @@ public abstract class BaseScope implements Scope {
 			s = s.getEnclosingScope();
 		}
 		return s;
+	}
+
+	/** Walk up enclosingScope until we find an object of a specific type.
+	 *  E.g., if you want to get enclosing method, you would pass in
+	 *  MethodSymbol.class, unless of course you have created a subclass for
+	 *  your language implementation.
+	 */
+	public MethodSymbol getEnclosingScopeOfType(Class<?> type) {
+		Scope s = this;
+		while ( s!=null ) {
+			if ( s.getClass()==type ) {
+				return (MethodSymbol)s;
+			}
+			s = s.getEnclosingScope();
+		}
+		return null;
 	}
 
 	@Override
