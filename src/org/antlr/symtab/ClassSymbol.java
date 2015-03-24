@@ -40,6 +40,10 @@ public class ClassSymbol extends DataAggregateSymbol {
 		nextFreeMethodSlot = getNumberOfMethods();
 	}
 
+	public String getSuperClassName() {
+		return superClassName;
+	}
+
 	public void setSlotNumber(Symbol sym) {
 		if ( sym instanceof MethodSymbol) {
 			MethodSymbol msym = (MethodSymbol)sym;
