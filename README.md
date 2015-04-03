@@ -4,6 +4,8 @@ A generic symbol table for lexically/statically scoped languages. The library is
 
 Uses Java 8 (a little).
 
+Grab the [latest jar](http://www.antlr.org/download/symtab-1.0.1.jar).
+
 ## Building / installing
 
 It's just a bunch of Java code so you can compile it like any other pile of
