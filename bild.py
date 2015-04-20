@@ -53,7 +53,7 @@ if not os.path.exists("bilder.py"):
 # assumes bilder.py is in current directory
 from bilder import *
 
-VERSION = "1.0.1"
+VERSION = "1.0.2-SNAPSHOT"
 
 
 def compile():
