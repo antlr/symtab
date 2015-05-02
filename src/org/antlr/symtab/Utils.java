@@ -73,6 +73,9 @@ public class Utils {
 		return fields.toArray(new Field[fields.size()]);
 	}
 
+	/** Order of scopes not guaranteed but is currently breadth-first according
+	 *  to nesting depth.
+	 */
 	public static void getAllNestedScopes(Scope scope, List<Scope> scopes) {
 		scopes.addAll(scope.getNestedScopes());
 		for (Scope s : scope.getNestedScopes()) {
