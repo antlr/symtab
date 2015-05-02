@@ -45,6 +45,7 @@ public class StringTable {
         int i = 0;
         for (String s : table.keySet()) {
 			strings.add(i, s);
+            i++;
 		}
         return strings;
 	}
