@@ -52,4 +52,4 @@ bild succeeded
 
 ## Example
 
-https://github.com/parrt/cs652/tree/master/lectures/code/symtab
+[Simple example from my prog lang course](https://github.com/parrt/cs652/tree/master/lectures/code/symtab)
