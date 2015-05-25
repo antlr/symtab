@@ -127,6 +127,15 @@ public class Utils {
 
 	//  Generic filtering, mapping, joining that should be in the standard library but aren't
 
+	public static <T> T findFirst(List<T> data, Predicate<T> pred) {
+		if ( data!=null ) for (T x : data) {
+			if ( pred.test(x) ) {
+				return x;
+			}
+		}
+		return null;
+	}
+
 	public static <T> List<T> filter(List<T> data, Predicate<T> pred) {
 		List<T> output = new ArrayList<>();
 		if ( data!=null ) for (T x : data) {
