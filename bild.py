@@ -92,6 +92,7 @@ def _mkjar():
     print "Generated " + jarfile
     osgijarfile = "dist/symtab-" + VERSION + "-osgi.jar"
     make_osgi_ready(jarfile, osgijarfile)
+    os.remove(jarfile)              # delete target for Windows compatibility
     os.rename(osgijarfile, jarfile) # copy back onto old jar
     print_and_log("Made jar OSGi-ready " + jarfile)
 
