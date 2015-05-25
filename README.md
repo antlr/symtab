@@ -49,3 +49,7 @@ Maven installing dist/symtab-1.0.jar and *-sources.jar, *-javadoc.jar
 Installing /usr/local/lib/symtab-1.0.jar
 bild succeeded
 ```
+
+## Example
+
+https://github.com/parrt/cs652/tree/master/lectures/code/symtab
