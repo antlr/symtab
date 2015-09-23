@@ -10,4 +10,12 @@ package org.antlr.symtab;
  */
 public interface Type {
 	public String getName();
+
+	/** It is useful during type computation and code gen to assign an int
+	 *  index to the primitive types and possibly user-defined types like
+	 *  structs and classes.
+	 *
+	 *  @return Return 0-indexed type index else -1 if no index.
+	 */
+	public int getTypeIndex();
 }

@@ -7,6 +7,9 @@ public class TypeAlias extends BaseSymbol implements Type {
 		super(name);
 		this.targetType = targetType;
 	}
+	
+	@Override
+	public int getTypeIndex() { return -1; }
 
 	public Type getTargetType() {
 		return targetType;

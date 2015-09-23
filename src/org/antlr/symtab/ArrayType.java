@@ -25,6 +25,9 @@ public class ArrayType implements Type {
 	}
 
 	@Override
+	public int getTypeIndex() { return -1; }
+
+	@Override
 	public String toString() {
 		return elemType+"[]";
 	}

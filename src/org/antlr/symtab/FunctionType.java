@@ -19,6 +19,9 @@ public class FunctionType implements Type {
 		return toString();
 	}
 
+	@Override
+	public int getTypeIndex() { return -1; }
+
 	public List<Type> getArgumentTypes() {
 		return argumentTypes;
 	}

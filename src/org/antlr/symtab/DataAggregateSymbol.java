@@ -14,6 +14,7 @@ import java.util.Map;
 public abstract class DataAggregateSymbol extends SymbolWithScope implements MemberSymbol, Type {
 	protected ParserRuleContext defNode;
 	protected int nextFreeFieldSlot = 0;  // next slot to allocate
+	protected int typeIndex;
 
 	public DataAggregateSymbol(String name) {
 		super(name);
@@ -100,5 +101,12 @@ public abstract class DataAggregateSymbol extends SymbolWithScope implements Mem
 	@Override
 	public int getSlotNumber() {
 		return -1; // class definitions do not yield either field or method slots; they are just nested
+	}
+
+	@Override
+	public int getTypeIndex() { return typeIndex; }
+
+	public void setTypeIndex(int typeIndex) {
+		this.typeIndex = typeIndex;
 	}
 }
