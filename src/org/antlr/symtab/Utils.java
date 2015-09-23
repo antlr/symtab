@@ -77,8 +77,8 @@ public class Utils {
 	 *  to nesting depth.
 	 */
 	public static void getAllNestedScopes(Scope scope, List<Scope> scopes) {
-		scopes.addAll(scope.getNestedScopes());
-		for (Scope s : scope.getNestedScopes()) {
+		scopes.addAll(scope.getNestedScopedSymbols());
+		for (Scope s : scope.getNestedScopedSymbols()) {
 			getAllNestedScopes(s, scopes);
 		}
 	}
@@ -115,7 +115,7 @@ public class Utils {
 				buf.append("\n");
 			}
 		}
-		for (Scope nested : s.getNestedScopes()) {
+		for (Scope nested : s.getNestedScopedSymbols()) {
 			buf.append(toString(nested, level));
 		}
 		return buf.toString();

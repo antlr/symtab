@@ -32,7 +32,7 @@ public abstract class BaseScope implements Scope {
 	}
 
 	@Override
-	public List<Scope> getNestedScopes() {
+	public List<Scope> getNestedScopedSymbols() {
 		List<? extends Symbol> scopes = Utils.filter(getSymbols(), s -> s instanceof Scope);
 		return (List)scopes; // force it to cast
 	}
