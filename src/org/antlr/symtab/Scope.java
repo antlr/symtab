@@ -68,9 +68,11 @@ public interface Scope {
 	/** Return all immediately enclosed scopes. E.g., a class would return
 	 *  all nested classes and any methods. There is no explicit pointer to the
 	 *  nested scopes. This method generally searches the list of symbols
-	 *  looking for symbols that implement Scope.
+	 *  looking for symbols that implement Scope. Gets only those scopes
+	 *  that are in the symbols list of "this" scope. E.g., does not get
+	 *  local scopes within a function.
 	 */
-	List<Scope> getNestedScopes();
+	List<Scope> getNestedScopedSymbols();
 
 	/** Return the symbols within the scope. The order of insertion
 	 *  into the scope is the order returns in this list.
