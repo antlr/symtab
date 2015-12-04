@@ -63,7 +63,7 @@ def compile():
     srcpath = ["src"]
     args = ["-Xlint", "-Xlint:-serial", "-g", "-sourcepath", string.join(srcpath, os.pathsep)]
     for sp in srcpath:
-        javac(sp, "out", version="1.8", cp=cp, args=args)
+        javac(sp, "out", javacVersion="1.8", version="1.8", cp=cp, args=args)
 
 
 def _mkjar():
@@ -150,7 +150,7 @@ def mkdoc():
         "org/abego",
         "org/stringtemplate",
         "org/antlr/stringtemplate"]
-    javadoc(srcdir=dirs, trgdir="doc/symtab", packages="org.antlr.symtab", exclude=exclude)
+    javadoc(srcdir=dirs, trgdir="doc/symtab", packages="org.antlr.symtab", exclude=exclude, javacVersion="1.8")
     zip(doc, "doc/symtab")
 
 
