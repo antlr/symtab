@@ -36,3 +36,9 @@ $ mvn release:prepare
 ```
 
 It will start out by asking you the version number and other stuff then update `pom.xml`.
+
+Handy command to wack snapshots:
+
+```bash
+$ curl -v -u user:password -X DELETE https://oss.sonatype.org/content/repositories/snapshots/org/antlr/symtab
+```
