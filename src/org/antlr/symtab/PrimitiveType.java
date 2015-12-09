@@ -1,11 +1,10 @@
 package org.antlr.symtab;
 
-public class PrimitiveType implements Type {
-	protected String name;
+public class PrimitiveType extends BaseSymbol implements Type {
 	protected int typeIndex;
 
 	public PrimitiveType(String name) {
-		this.name = name;
+		super(name);
 	}
 
 	@Override

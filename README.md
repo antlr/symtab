@@ -8,48 +8,31 @@ Grab the [latest jar](http://www.antlr.org/download/symtab-1.0.1.jar).
 
 ## Building / installing
 
-It's just a bunch of Java code so you can compile it like any other pile of
-code in a development environment. Or, on UNIX you can use my bild.py script:
+It's just a bunch of Java code so you can compile it like any other pile of code in a development environment. **It requires Java 8**. 
+
+The easiest method is to use maven:
 
 ```bash
 $ cd symtab
-./bild.py
+$ javac -version
+javac 1.8.0_31
+$ mvn package
+...
+[INFO] Building jar: /Users/parrt/antlr/code/symtab/target/symtab-1.0.3-SNAPSHOT.jar
+...
 ```
 
-or
-
-```bash
-./bild.py -debug
-```
-
-There are targets for mkjar, mkdoc, install, and clean
-
-```bash
-./bild.py -debug install
-```
-
-For example:
-
-```bash
-~/antlr/code/symtab $ ./bild.py install
-target install
-require _mkjar
-require compile
-build _mkjar
-Generated dist/symtab-1.0.jar
-Made jar OSGi-ready dist/symtab-1.0.jar
-build install
-require mksrc
-Generated dist/symtab-1.0-sources.jar
-build install
-require mkdoc
-require mksrc
-build install
-Maven installing dist/symtab-1.0.jar and *-sources.jar, *-javadoc.jar
-Installing /usr/local/lib/symtab-1.0.jar
-bild succeeded
-```
+Or you can `mvn install` to have it placed into your `~/.m2` maven cache.
 
 ## Example
 
 [Simple example from my prog lang course](https://github.com/parrt/cs652/tree/master/lectures/code/symtab)
+
+## Releasing version
+
+```bash
+$ mvn deploy
+$ mvn release:prepare
+```
+
+It will start out by asking you the version number and other stuff then update `pom.xml`.
