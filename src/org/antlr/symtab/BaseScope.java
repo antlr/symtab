@@ -129,9 +129,9 @@ public abstract class BaseScope implements Scope {
 		return symbols.size();
 	}
 
-	public List<Scope> getAllNestedScopes() {
+	public List<Scope> getAllNestedScopedSymbols() {
 		List<Scope> scopes = new ArrayList<Scope>();
-		Utils.getAllNestedScopes(this, scopes);
+		Utils.getAllNestedScopedSymbols(this, scopes);
 		return scopes;
 	}
 

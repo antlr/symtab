@@ -76,10 +76,10 @@ public class Utils {
 	/** Order of scopes not guaranteed but is currently breadth-first according
 	 *  to nesting depth.
 	 */
-	public static void getAllNestedScopes(Scope scope, List<Scope> scopes) {
+	public static void getAllNestedScopedSymbols(Scope scope, List<Scope> scopes) {
 		scopes.addAll(scope.getNestedScopedSymbols());
 		for (Scope s : scope.getNestedScopedSymbols()) {
-			getAllNestedScopes(s, scopes);
+			getAllNestedScopedSymbols(s, scopes);
 		}
 	}
 
