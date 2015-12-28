@@ -1,7 +1,9 @@
 package org.antlr.symtab;
 
+import java.awt.dnd.InvalidDnDOperationException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +13,17 @@ import java.util.Set;
 public abstract class BaseScope implements Scope {
 	protected Scope enclosingScope; // null if this scope is the root of the scope tree
 
+	/** All symbols defined in this scope; can include classes, functions,
+	 *  variables, or anything else that is a Symbol impl. It does NOT
+	 *  include non-Symbol-based things like LocalScope. See nestedScopes.
+	 */
 	protected Map<String, Symbol> symbols = new LinkedHashMap<>();
+
+	/** All directly contained scopes, typically LocalScopes within a
+	 *  LocalScope or a LocalScope within a FunctionSymbol. This does not
+	 *  include SymbolWithScope objects.
+	 */
+	protected List<Scope> nestedScopesWithoutSymbols = new ArrayList<>();
 
 	public BaseScope() { }
 
@@ -31,10 +43,36 @@ public abstract class BaseScope implements Scope {
 		this.enclosingScope = enclosingScope;
 	}
 
+	public List<Scope> getAllNestedScopedSymbols() {
+		List<Scope> scopes = new ArrayList<Scope>();
+		Utils.getAllNestedScopedSymbols(this, scopes);
+		return scopes;
+	}
+
 	@Override
 	public List<Scope> getNestedScopedSymbols() {
 		List<? extends Symbol> scopes = Utils.filter(getSymbols(), s -> s instanceof Scope);
 		return (List)scopes; // force it to cast
+	}
+
+	@Override
+	public List<Scope> getNestedScopes() {
+		ArrayList<Scope> all = new ArrayList<>();
+		all.addAll(getNestedScopedSymbols());
+		all.addAll(nestedScopesWithoutSymbols);
+		return all;
+	}
+
+	/** Add a nested scope to this scope; could also be a FunctionSymbol
+	 *  if your language allows nested functions.
+	 */
+	@Override
+	public void add(Scope scope) throws IllegalArgumentException {
+		if ( scope instanceof SymbolWithScope ) {
+			throw new IllegalArgumentException("Add SymbolWithScope instance "+
+												   scope.getName()+" via define()");
+		}
+		nestedScopesWithoutSymbols.add(scope);
 	}
 
 	@Override
@@ -127,12 +165,6 @@ public abstract class BaseScope implements Scope {
 	@Override
 	public int getNumberOfSymbols() {
 		return symbols.size();
-	}
-
-	public List<Scope> getAllNestedScopedSymbols() {
-		List<Scope> scopes = new ArrayList<Scope>();
-		Utils.getAllNestedScopedSymbols(this, scopes);
-		return scopes;
 	}
 
 	@Override
