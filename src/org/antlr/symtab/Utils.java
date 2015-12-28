@@ -113,19 +113,20 @@ public class Utils {
 	}
 
 	public static String toString(Scope s, int level) {
+		if ( s==null ) return "";
 		StringBuilder buf = new StringBuilder();
 		buf.append(tab(level));
 		buf.append(s.getName());
 		buf.append("\n");
 		level++;
-		if ( s!=null ) for (Symbol sym : s.getSymbols()) {
+		for (Symbol sym : s.getSymbols()) { // print out all symbols but not scopes
 			if ( !(sym instanceof Scope) ) {
 				buf.append(tab(level));
 				buf.append(sym);
 				buf.append("\n");
 			}
 		}
-		for (Scope nested : s.getNestedScopedSymbols()) {
+		for (Scope nested : s.getNestedScopes()) { // includes named scopes and local scopes
 			buf.append(toString(nested, level));
 		}
 		return buf.toString();
