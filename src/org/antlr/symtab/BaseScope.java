@@ -65,7 +65,7 @@ public abstract class BaseScope implements Scope {
 	 *  if your language allows nested functions.
 	 */
 	@Override
-	public void add(Scope scope) throws IllegalArgumentException {
+	public void nest(Scope scope) throws IllegalArgumentException {
 		if ( scope instanceof SymbolWithScope ) {
 			throw new IllegalArgumentException("Add SymbolWithScope instance "+
 												   scope.getName()+" via define()");

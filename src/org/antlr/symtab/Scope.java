@@ -64,7 +64,7 @@ public interface Scope {
 	 *
 	 *  @throws IllegalArgumentException if you pass in a SymbolWithScope.
 	 */
-	void add(Scope scope) throws IllegalArgumentException;
+	void nest(Scope scope) throws IllegalArgumentException;
 
 	/** Return a list of scopes nested within this scope. It has both
 	 *  ScopedSymbols and scopes without symbols, such as LocalScopes.
