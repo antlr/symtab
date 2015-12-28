@@ -1,9 +1,7 @@
 package org.antlr.symtab;
 
-import java.awt.dnd.InvalidDnDOperationException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +21,7 @@ public abstract class BaseScope implements Scope {
 	 *  LocalScope or a LocalScope within a FunctionSymbol. This does not
 	 *  include SymbolWithScope objects.
 	 */
-	protected List<Scope> nestedScopesWithoutSymbols = new ArrayList<>();
+	protected List<Scope> nestedScopesNotSymbols = new ArrayList<>();
 
 	public BaseScope() { }
 
@@ -59,7 +57,7 @@ public abstract class BaseScope implements Scope {
 	public List<Scope> getNestedScopes() {
 		ArrayList<Scope> all = new ArrayList<>();
 		all.addAll(getNestedScopedSymbols());
-		all.addAll(nestedScopesWithoutSymbols);
+		all.addAll(nestedScopesNotSymbols);
 		return all;
 	}
 
@@ -72,7 +70,7 @@ public abstract class BaseScope implements Scope {
 			throw new IllegalArgumentException("Add SymbolWithScope instance "+
 												   scope.getName()+" via define()");
 		}
-		nestedScopesWithoutSymbols.add(scope);
+		nestedScopesNotSymbols.add(scope);
 	}
 
 	@Override
