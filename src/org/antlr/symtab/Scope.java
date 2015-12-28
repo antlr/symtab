@@ -52,6 +52,12 @@ public interface Scope {
 	 */
 	void define(Symbol sym) throws IllegalArgumentException;
 
+	/** Look up name in this scope or recursively in parent scope if not here */
+	Symbol resolve(String name);
+
+	/** Get symbol if name defined within this specific scope */
+	Symbol getSymbol(String name);
+
 	/** Add a nested local scope to this scope; it's like define() but
 	 *  for non SymbolWithScope objects. E.g., a FunctionSymbol will
 	 *  add a LocalScope for its block via this method.
@@ -60,11 +66,13 @@ public interface Scope {
 	 */
 	void add(Scope scope) throws IllegalArgumentException;
 
-	/** Look up name in this scope or recursively in parent scope if not here */
-	Symbol resolve(String name);
-
-	/** Get symbol if name defined within this specific scope */
-	Symbol getSymbol(String name);
+	/** Return a list of scopes nested within this scope. It has both
+	 *  ScopedSymbols and scopes without symbols, such as LocalScopes.
+	 *  This returns a superset or same set as {@link #getNestedScopedSymbols}.
+	 *  ScopedSymbols come first then all non-ScopedSymbols Scope objects.
+	 *  Insertion order is used within each sublist.
+	 */
+	List<Scope> getNestedScopes();
 
 	// ------------ Convenience methods --------------------------------
 
@@ -83,14 +91,6 @@ public interface Scope {
 	 *  This returns a subset or same set as {@link #getNestedScopes}.
 	 */
 	List<Scope> getNestedScopedSymbols();
-
-	/** Return a list of scopes nested within this scope. It has both
-	 *  ScopedSymbols and scopes without symbols, such as LocalScopes.
-	 *  This returns a superset or same set as {@link #getNestedScopedSymbols}.
-	 *  ScopedSymbols come first then all non-ScopedSymbols Scope objects.
-	 *  Insertion order is used within each sublist.
-	 */
-	List<Scope> getNestedScopes();
 
 	/** Return the symbols defined within this scope. The order of insertion
 	 *  into the scope is the order returned in this list.
