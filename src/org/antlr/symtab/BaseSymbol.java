@@ -69,7 +69,7 @@ public abstract class BaseSymbol implements Symbol {
 	public String toString() {
 		String s = "";
 		if ( scope!=null ) s = scope.getName()+".";
-		if ( type!=null ) return '<'+s+getName()+"."+type+'>';
+		if ( type!=null ) return '<'+s+getName()+":"+type+'>';
 		return s+getName();
 	}
 }
