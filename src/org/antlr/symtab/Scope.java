@@ -26,12 +26,6 @@ public interface Scope {
 	 */
 	String getName();
 
-	/** Where to look next for symbols if just one parent; superclass or enclosing scope. */
-	Scope getParentScope();
-
-	/** Multiple superclass or interface implementations and the like... */
-	List<Scope> getParentScopes();
-
 	/** Scope in which this scope defined. null if no enclosing scope */
 	Scope getEnclosingScope();
 

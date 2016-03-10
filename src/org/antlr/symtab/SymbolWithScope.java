@@ -20,8 +20,7 @@ public abstract class SymbolWithScope extends BaseScope implements Symbol, Scope
 	@Override public Scope getScope() { return enclosingScope; }
 	@Override public void setScope(Scope scope) { setEnclosingScope(scope); }
 
-	public Scope getParentScope() { return getEnclosingScope(); }
-    public Scope getEnclosingScope() { return enclosingScope; }
+    @Override public Scope getEnclosingScope() { return enclosingScope; }
 
 	/** Return the name prefixed with the name of its enclosing scope
 	 *  using '.' (dot) as the scope separator.

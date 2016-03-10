@@ -49,6 +49,28 @@ public abstract class DataAggregateSymbol extends SymbolWithScope implements Mem
 		return (Map<String, ? extends MemberSymbol>)super.getMembers();
 	}
 
+	/** Look up name within this scope only. Return any kind of MemberSymbol found
+	 *  or null if nothing with this name found as MemberSymbol.
+	 */
+	public Symbol resolveMember(String name) {
+		Symbol s = symbols.get(name);
+		if ( s instanceof MemberSymbol ) {
+			return s;
+		}
+		return null;
+	}
+
+	/** Look for a field with this name in this scope only.
+	 *  Return null if no field found.
+	 */
+	public Symbol resolveField(String name) {
+		Symbol s = resolveMember(name);
+		if ( s instanceof FieldSymbol ) {
+			return s;
+		}
+		return null;
+	}
+
 	/** get the number of fields defined specifically in this class */
 	public int getNumberOfDefinedFields() {
 		int n = 0;
@@ -60,17 +82,10 @@ public abstract class DataAggregateSymbol extends SymbolWithScope implements Mem
 		return n;
 	}
 
-	/** get the total number of fields visible to this class */
-	public int getNumberOfFields() {
-		int n = 0;
-		if ( getParentScope() instanceof DataAggregateSymbol ) {
-			DataAggregateSymbol parentScope = (DataAggregateSymbol)getParentScope();
-			n += parentScope.getNumberOfFields();
-		}
-		n += getNumberOfDefinedFields();
-		return n;
-	}
+	/** Get the total number of fields visible to this class */
+	public int getNumberOfFields() { return getNumberOfDefinedFields(); }
 
+	/** Return the list of fields in this specific aggregate */
 	public List<? extends FieldSymbol> getDefinedFields() {
 		List<FieldSymbol> fields = new ArrayList<>();
 		for (MemberSymbol s : getSymbols()) {
@@ -81,15 +96,7 @@ public abstract class DataAggregateSymbol extends SymbolWithScope implements Mem
 		return fields;
 	}
 
-	public List<? extends FieldSymbol> getFields() {
-		List<FieldSymbol> fields = new ArrayList<>();
-		if ( getParentScope() instanceof DataAggregateSymbol ) {
-			DataAggregateSymbol parentScope = (DataAggregateSymbol)getParentScope();
-			fields.addAll( parentScope.getFields() );
-		}
-		fields.addAll( getDefinedFields() );
-		return fields;
-	}
+	public List<? extends FieldSymbol> getFields() { return getDefinedFields(); }
 
 	public void setSlotNumber(Symbol sym) {
 		if ( sym instanceof FieldSymbol) {
