@@ -41,6 +41,18 @@ public class ClassSymbol extends DataAggregateSymbol {
 		return null;
 	}
 
+	@Override
+	public Symbol resolve(String name) {
+		Symbol s = resolveMember(name);
+		if ( s!=null ) {
+			return s;
+		}
+		// if not a member, check any enclosing scope. it might be a global variable for example
+		Scope parent = getEnclosingScope();
+		if ( parent != null ) return parent.resolve(name);
+		return null; // not found
+	}
+
 	/** Look for a member with this name in this scope or any super class.
 	 *  Return null if no member found.
 	 */
@@ -51,10 +63,13 @@ public class ClassSymbol extends DataAggregateSymbol {
 			return s;
 		}
 		// walk superclass chain
-		for (ClassSymbol sup : getSuperClassScopes()) {
-			s = sup.resolveMember(name);
-			if ( s instanceof MemberSymbol ) {
-				return s;
+		List<ClassSymbol> superClassScopes = getSuperClassScopes();
+		if ( superClassScopes!=null ) {
+			for (ClassSymbol sup : superClassScopes) {
+				s = sup.resolveMember(name);
+				if ( s instanceof MemberSymbol ) {
+					return s;
+				}
 			}
 		}
 		return null;
@@ -76,9 +91,9 @@ public class ClassSymbol extends DataAggregateSymbol {
 	 *  Return null if no method found.
 	 */
 	public MethodSymbol resolveMethod(String name) {
-		Symbol sym = resolve(name);
-		if ( sym instanceof MethodSymbol ) {
-			return (MethodSymbol)sym;
+		Symbol s = resolveMember(name);
+		if ( s instanceof MethodSymbol ) {
+			return (MethodSymbol)s;
 		}
 		return null;
 	}
