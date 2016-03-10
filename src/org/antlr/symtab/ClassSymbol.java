@@ -33,10 +33,29 @@ public class ClassSymbol extends DataAggregateSymbol {
 	}
 
 	/** Multiple superclass or interface implementations and the like... */
-	public List<Scope> getSuperClassScopes() {
-		Scope superClassScope = getSuperClassScope();
+	public List<ClassSymbol> getSuperClassScopes() {
+		ClassSymbol superClassScope = getSuperClassScope();
 		if ( superClassScope!=null ) {
 			return Collections.singletonList(superClassScope);
+		}
+		return null;
+	}
+
+	/** Look for a member with this name in this scope or any super class.
+	 *  Return null if no member found.
+	 */
+	@Override
+	public Symbol resolveMember(String name) {
+		Symbol s = symbols.get(name);
+		if ( s instanceof MemberSymbol ) {
+			return s;
+		}
+		// walk superclass chain
+		for (ClassSymbol sup : getSuperClassScopes()) {
+			s = sup.resolveMember(name);
+			if ( s instanceof MemberSymbol ) {
+				return s;
+			}
 		}
 		return null;
 	}
