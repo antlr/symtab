@@ -80,7 +80,7 @@ public abstract class BaseScope implements Scope {
 			return s;
 		}
 		// if not here, check any enclosing scope
-		Scope parent = getParentScope();
+		Scope parent = getEnclosingScope();
 		if ( parent != null ) return parent.resolve(name);
 		return null; // not found
 	}
@@ -94,10 +94,6 @@ public abstract class BaseScope implements Scope {
 		symbols.put(sym.getName(), sym);
 	}
 
-	public Scope getParentScope() { return getEnclosingScope(); }
-	public List<Scope> getParentScopes() {
-		return new ArrayList<Scope>() {{add(getParentScope());}};
-	}
 	public Scope getEnclosingScope() { return enclosingScope; }
 
 	/** Walk up enclosingScope until we find topmost. Note this is
