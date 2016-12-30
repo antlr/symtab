@@ -8,7 +8,7 @@
   </component>
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile name="Annotation profile for symtab" enabled="true">
+      <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -194,15 +194,15 @@
         <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.11/junit-4.11-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.antlr:antlr4-runtime:4.5.1">
+    <library name="Maven: org.antlr:antlr4-runtime:4.6">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/antlr/antlr4-runtime/4.5.1/antlr4-runtime-4.5.1.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/antlr/antlr4-runtime/4.6/antlr4-runtime-4.6.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/antlr/antlr4-runtime/4.5.1/antlr4-runtime-4.5.1-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/antlr/antlr4-runtime/4.6/antlr4-runtime-4.6-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/antlr/antlr4-runtime/4.5.1/antlr4-runtime-4.5.1-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/antlr/antlr4-runtime/4.6/antlr4-runtime-4.6-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.hamcrest:hamcrest-core:1.3">
