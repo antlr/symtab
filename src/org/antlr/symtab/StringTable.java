@@ -14,27 +14,38 @@ import java.util.List;
  *  case, I need the index out not just to make these strings unique.
  */
 public class StringTable {
-    protected LinkedHashMap<String,Integer> table = new LinkedHashMap<String,Integer>();
-    protected int index = -1; // index we have just written
+	protected LinkedHashMap<String,Integer> table = new LinkedHashMap<String,Integer>();
+	protected int index = -1; // index we have just written
 
-    public int add(String s) {
-        Integer I = table.get(s);
-        if ( I!=null ) return I;
-        index++;
-        table.put(s, index);
-        return index;
-    }
+	public int add(String s) {
+		Integer I = table.get(s);
+		if ( I!=null ) return I;
+		index++;
+		table.put(s, index);
+		return index;
+	}
+
+	/** Get the ith string or null if out of range; a very inefficient implementation */
+	public String get(int i) {
+		if ( i<size() && i>0 ) {
+			String[] strings = toArray();
+			return strings[i];
+		}
+		return null;
+	}
+
+	public int size() { return table.size(); }
 
 	/** Return an array, possibly of length zero, with all strings
 	 *  sitting at their appropriate index within the array.
 	 */
-    public String[] toArray() {
+	public String[] toArray() {
 		if ( table.size()==0 ) return new String[0];
-        String[] a = new String[table.size()];
-        int i = 0;
-        for (String s : table.keySet()) a[i++] = s;
-        return a;
-    }
+		String[] a = new String[table.size()];
+		int i = 0;
+		for (String s : table.keySet()) a[i++] = s;
+		return a;
+	}
 
 	/** Return a List, possibly of length zero, with all strings
 	 *  sitting at their appropriate index within the array.
@@ -42,12 +53,12 @@ public class StringTable {
 	public List<String> toList() {
 		if ( table.size()==0 ) return Collections.emptyList();
 		List<String> strings = new ArrayList<>();
-        int i = 0;
-        for (String s : table.keySet()) {
+		int i = 0;
+		for (String s : table.keySet()) {
 			strings.add(i, s);
-            i++;
+			i++;
 		}
-        return strings;
+		return strings;
 	}
 
 	public int getNumberOfStrings() {
