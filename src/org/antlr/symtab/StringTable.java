@@ -1,6 +1,6 @@
 package org.antlr.symtab;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -16,20 +16,21 @@ import java.util.List;
 public class StringTable {
 	protected LinkedHashMap<String,Integer> table = new LinkedHashMap<String,Integer>();
 	protected int index = -1; // index we have just written
+	protected List<String> strings = new ArrayList<>();
 
 	public int add(String s) {
 		Integer I = table.get(s);
 		if ( I!=null ) return I;
 		index++;
 		table.put(s, index);
+		strings.set(index, s);
 		return index;
 	}
 
-	/** Get the ith string or null if out of range; a very inefficient implementation */
+	/** Get the ith string or null if out of range */
 	public String get(int i) {
 		if ( i<size() && i>0 ) {
-			String[] strings = toArray();
-			return strings[i];
+			return strings.get(i);
 		}
 		return null;
 	}
@@ -40,24 +41,13 @@ public class StringTable {
 	 *  sitting at their appropriate index within the array.
 	 */
 	public String[] toArray() {
-		if ( table.size()==0 ) return new String[0];
-		String[] a = new String[table.size()];
-		int i = 0;
-		for (String s : table.keySet()) a[i++] = s;
-		return a;
+		return strings.toArray(new String[strings.size()]);
 	}
 
 	/** Return a List, possibly of length zero, with all strings
 	 *  sitting at their appropriate index within the array.
 	 */
 	public List<String> toList() {
-		if ( table.size()==0 ) return Collections.emptyList();
-		List<String> strings = new ArrayList<>();
-		int i = 0;
-		for (String s : table.keySet()) {
-			strings.add(i, s);
-			i++;
-		}
 		return strings;
 	}
 
