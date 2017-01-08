@@ -23,7 +23,7 @@ public class StringTable {
 		if ( I!=null ) return I;
 		index++;
 		table.put(s, index);
-		strings.set(index, s);
+		strings.add(s);
 		return index;
 	}
 
