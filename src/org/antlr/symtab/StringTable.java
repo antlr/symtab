@@ -29,7 +29,7 @@ public class StringTable {
 
 	/** Get the ith string or null if out of range */
 	public String get(int i) {
-		if ( i<size() && i>0 ) {
+		if ( i<size() && i>=0 ) {
 			return strings.get(i);
 		}
 		return null;
