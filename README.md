@@ -33,11 +33,14 @@ Or you can `mvn install` to have it placed into your `~/.m2` maven cache.
 ## Releasing version
 
 ```bash
-$ mvn deploy
-$ mvn release:prepare
+mvn deploy
+mvn release:prepare
+mvn release:perform
 ```
 
 It will start out by asking you the version number and other stuff then update `pom.xml`.
+
+Then go to [sonatype staing repo mgr](https://oss.sonatype.org/#stagingRepositories)
 
 Handy command to wack snapshots:
 
