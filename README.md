@@ -4,7 +4,7 @@ A generic symbol table for lexically/statically scoped languages. The library is
 
 Uses Java 8 (a little).
 
-Grab the [latest jar](http://www.antlr.org/download/symtab-1.0.8.jar).
+Grab the [latest jar, javadoc](http://repo1.maven.org/maven2/org/antlr/symtab).
 
 Maven users should use 	group id `org.antlr` and artifact id `symtab`.
 
