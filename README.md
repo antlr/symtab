@@ -12,6 +12,10 @@ Here is the class hiearchy:
 
 <img src=doc/symtab.png width=900>
 
+Or, zooming in on the aggregate symbols:
+
+<img src=doc/struct.png width=400>
+
 ## Building / installing
 
 It's just a bunch of Java code so you can compile it like any other pile of code in a development environment. **It requires Java 8**. 
