@@ -8,6 +8,10 @@ Grab the [latest jar, javadoc](http://repo1.maven.org/maven2/org/antlr/symtab).
 
 Maven users should use 	group id `org.antlr` and artifact id `symtab`.
 
+Here is the class hiearchy:
+
+<img src=doc/symtab.png width=900>
+
 ## Building / installing
 
 It's just a bunch of Java code so you can compile it like any other pile of code in a development environment. **It requires Java 8**. 
